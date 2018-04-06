@@ -24,16 +24,17 @@ for (line of lines) {
         "autocapitalization": "sentences"});
 
     // Change these buttons to personalize to your own project lists
-    // You will also have to change button name in IF statements starting line 52
+    // You will also have to change button name 
+    // and list in the IF statements starting line 57
     p.addButton("Add to Chores");
     p.addButton("Add to Shopping List");
     p.addButton("Capture to Inbox");
 
-    p.addSwitch("dateSwitch", "Add a date to this Task?", false);
-    p.addDatePicker("myDate", "", new Date(), {
-        "mode": "date"
-    });
+    // Change these tags names to personalize to your own tags
+    p.addSelect("tagSelector", "Add a tag to this Task?", ["Focus", "Hanging", "Dash"], [], true);
 
+    p.addSwitch("dateSwitch", "Prioritize this task to today?", false);
+   
     var didSelect = p.show();
 
     // Create the things todo js object
@@ -42,13 +43,18 @@ for (line of lines) {
     todo.notes = p.fieldValues["todoNote"];
 
     // Conditionals to append details to the todo task object
-    if (p.fieldValues["dateSwitch"]) {
-        var myDate = p.fieldValues["myDate"];
-        // splitting up the datetime string to return ONLY the date
-        todo.when = myDate.toDateString();
+    if (p.fieldValues["tagSelector"] > 0 ) {
+        var mytags = p.fieldValues["tagSelector"];
+        todo.tags = mytags.toString();
     }
 
-    // if the project button names were changed, then change the names in this conditional statement too
+    // Conditionals to prioritize the task to Today
+    if (p.fieldValues["dateSwitch"]) {
+        todo.when = "today";
+    } 
+
+    // if the project button names were changed, 
+    // then change the names in this conditional statement too
     if (p.buttonPressed == "Add to Chores") {
         todo.list = "Chores";
         todos.push(todo);
@@ -70,7 +76,7 @@ for (line of lines) {
 
 
     // trigger a failed draft action if no todos were logged
-if (todos == []){
+if (todos < 1){
     context.fail();
 } else {
     // create a container to handle creation of Things URL
