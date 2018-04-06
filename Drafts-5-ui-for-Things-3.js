@@ -76,7 +76,7 @@ for (line of lines) {
 
 
     // trigger a failed draft action if no todos were logged
-if (todos < 1){
+if (todos.length < 1){
     context.fail();
 } else {
     // create a container to handle creation of Things URL
@@ -88,13 +88,16 @@ if (todos < 1){
     var success = cb.open();
     if (success) {
         console.log("Todo created in Things");
-        var d = Draft.create();
-        d.content = skipped.join("\n");
-        d.update();
-        var draftID = d.uuid
-        var cb2 = CallbackURL.create();
-        cb2.baseURL = "drafts5://x-callback-url/open?uuid=" + draftID;
-        cb2.open();
+
+        if (skipped.length > 0){
+            var d = Draft.create();
+            d.content = skipped.join("\n");
+            d.update();
+            var draftID = d.uuid
+            var cb2 = CallbackURL.create();
+            cb2.baseURL = "drafts5://x-callback-url/open?uuid=" + draftID;
+            cb2.open();
+        }
     }
     else { // something went wrong or was cancelled
         console.log(cb.status);
