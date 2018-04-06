@@ -28,7 +28,7 @@ for (line of lines) {
     // and list in the IF statements starting line 57
     p.addButton("Add to Chores");
     p.addButton("Add to Shopping List");
-    p.addButton("Capture to Inbox");
+    p.addButton("Capture Task");
 
     // Change these tags names to personalize to your own tags
     p.addSelect("tagSelector", "Add a tag to this Task?", ["Focus", "Hanging", "Dash"], [], true);
@@ -61,7 +61,7 @@ for (line of lines) {
     } else if (p.buttonPressed == "Add to Shopping List") {
         todo.list = "Shopping List";
         todos.push(todo);
-    } else if (p.buttonPressed == "Capture to Inbox") {
+    } else if (p.buttonPressed == "Capture Task") {
         todo.list = "";
         todos.push(todo);
     }
