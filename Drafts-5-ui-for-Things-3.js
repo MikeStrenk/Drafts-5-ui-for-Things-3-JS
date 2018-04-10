@@ -59,7 +59,7 @@ for (line of lines) {
         todo.list = "Chores";
         todos.push(todo);
     } else if (p.buttonPressed == "Add to Shopping List") {
-        todo.list = "Shopping List";
+        todo.list = "Shopping";
         todos.push(todo);
     } else if (p.buttonPressed == "Capture Task") {
         todo.list = "";
@@ -75,8 +75,8 @@ for (line of lines) {
 }
 
 
-    // trigger a failed draft action if no todos were logged
 if (todos.length < 1){
+    // trigger a failed draft action if no todos were logged
     context.fail();
 } else {
     // create a container to handle creation of Things URL
